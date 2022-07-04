@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>이름</th>
+                <th>레벨</th>
+            </tr>
+            </thead>
+            <div th:object="${summonerDto}">
+                <p>Name: <span th:text="*{name}">Sebastian</span>.</p>
+                <p>level: <span th:text="*{summonerLevel}">Pepper</span>.</p>
+            </div>
+        </table>
+    </div>
+</body>
+</html>

@@ -18,9 +18,8 @@ import java.net.URL;
 public class SummonerService {
 
     public SummonerDto searchSummoner(String sumname){
-        ObjectMapper objectMapper=new ObjectMapper();
         SummonerDto summoner=null;
-        BufferedReader bufferedReader = null;
+        BufferedReader bufferedReader;
 
         String summonerName=sumname.replaceAll(" ","%20");
         String requestUrl= "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+ summonerName + "?api_key=" + RiotKey.apiKey;
@@ -29,12 +28,12 @@ public class SummonerService {
             HttpURLConnection urlConnection=(HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             bufferedReader =new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"UTF-8"));
-            String result="";
+            StringBuilder result= new StringBuilder();
             String line;
             while((line=bufferedReader.readLine())!=null){
-                result=result+line;
+                result.append(line);
             }
-            JsonObject jsonObject=(JsonObject) JsonParser.parseString(result);
+            JsonObject jsonObject=(JsonObject) JsonParser.parseString(result.toString());
             String accountId=jsonObject.get("accountId").getAsString();
             int profileIconId=jsonObject.get("profileIconId").getAsInt();
             long revisionDate=jsonObject.get("revisionDate").getAsLong();
